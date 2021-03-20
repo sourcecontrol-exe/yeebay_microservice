@@ -16,7 +16,7 @@ spec:
     spec : 
       containers: 
         - name: auth
-          image : swetabhsubham/auth
+          image : yeebay/auth
 
 ---
 
@@ -28,7 +28,7 @@ metadata:
   name: auth-srv
 spec: 
   selector:
-    app: app
+    app: auth
   ports:
     - name: auth
       protocol: TCP
