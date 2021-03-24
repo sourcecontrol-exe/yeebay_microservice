@@ -7,7 +7,7 @@ app.use(json());
 
 
 app.get("/api/users/currentUser",(req,res)=>{
-    res.send("HI there !!")
+    res.send("Hi there!!")
 })
 
 app.listen(3000,()=>{
