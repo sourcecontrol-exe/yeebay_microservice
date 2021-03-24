@@ -5,10 +5,12 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
-  local:
-    push: false
+  # local:
+  #   push: false
+  googleCloudBuild:
+    projectId: yeebay-dev
   artifacts:
-    - image : yeebay/auth
+    - image: gcr.io/yeebay-dev/auth
       context: auth
       docker: 
         dockerfile: Dockerfile

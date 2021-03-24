@@ -16,7 +16,7 @@ spec:
     spec : 
       containers: 
         - name: auth
-          image : yeebay/auth
+          image: gcr.io/yeebay-dev/auth
           resources:
             requests:
               memory: "64Mi"
