@@ -4,6 +4,6 @@ export class DatabaseConnectionError extends Error {
      {
          super();
 
-         Object.setPrototypeOf(this,DatabaseConnectionError.prototype);
+         Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
      }
 }
