@@ -1,4 +1,6 @@
-export class DatabaseConnectionError extends Error {
+import {CustomError} from "./custom-error"
+
+export class DatabaseConnectionError extends CustomError{
     statusCode = 500;
     reason = 'Error connectiong to database';
      constructor()
@@ -10,7 +12,7 @@ export class DatabaseConnectionError extends Error {
 
      serializeErrors(){
          return [{
-             message : this.reason
+            message : this.reason
          }]
      }
 }
