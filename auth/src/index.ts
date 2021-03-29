@@ -7,6 +7,7 @@ import {signupRouter} from "./routes/signup";
 import {signoutRouter} from "./routes/signout";
 import {errorHandler} from "./middlewares/error-handler"
 import {NotFoundError } from "./errors/not-found-error"
+import mongoose from "mongoose"
 
 const app = express();
 
@@ -21,6 +22,22 @@ app.use(errorHandler);
 app.all('*', async (req,res)=>{
     throw new NotFoundError;
 })
+
+const start = async () => {
+    try{
+    await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
+        useNewUrlParser:true,
+        useUnifiedTopology:true,
+        useCreateIndex:true
+    })
+    console.log("connected to auth database")
+    }
+    catch(err){
+        console.log(err);
+    }
+}
+
+start();
 
 app.listen(3000,()=>{
     console.log("Listening to port 3000!!!!!")
