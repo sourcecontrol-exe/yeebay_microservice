@@ -4,7 +4,9 @@ import {RequestValidationError} from  "../errors/request-validation-error";
 import {DatabaseConnectionError} from "../errors/database-connection-error";
 import {User} from '../models/user'
 import { BadRequestError } from "../errors/bad-request-error";
+import jwt from 'jsonwebtoken';
 const router = express.Router();
+
 
 router.post("/api/users/signup",
     [
@@ -17,7 +19,7 @@ router.post("/api/users/signup",
     .withMessage("Enter a valid password")
     ],
 
-    (req: Request,res: Response)=>{
+    async (req: Request,res: Response)=>{
         const errors = validationResult(req);
   
         if(!errors.isEmpty()){
@@ -39,9 +41,21 @@ router.post("/api/users/signup",
            password
        })
 
-       user.save();
+        await user.save();
 
-        res.status(201).send(user);
+         // generate JWT
+
+         const userJWT = jwt.sign({
+             id: user.id,
+             email: user.email
+         },"asdf")
+
+         // store it on session
+          req.session= {
+              jwt: userJWT
+          }
+
+       res.status(201).send(user);
 
 })
 
