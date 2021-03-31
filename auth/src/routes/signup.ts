@@ -19,7 +19,7 @@ router.post("/api/users/signup",
     .withMessage("Enter a valid password")
     ],
 
-    async (req: Request,res: Response)=>{
+   async (req: Request,res: Response)=>{
         const errors = validationResult(req);
   
         if(!errors.isEmpty()){
@@ -30,7 +30,7 @@ router.post("/api/users/signup",
 
        const {email, password} =req.body
 
-       const existingUser =  User.findOne({email});
+       const existingUser = await User.findOne({email});
 
        if(existingUser){
         throw new BadRequestError("Email in use")
@@ -44,16 +44,16 @@ router.post("/api/users/signup",
         await user.save();
 
          // generate JWT
-
+        
          const userJWT = jwt.sign({
              id: user.id,
              email: user.email
-         },"asdf")
+         },process.env.JWT_KEY!)
 
          // store it on session
           req.session= {
-              jwt: userJWT
-          }
+              jwt: userJWT!
+          } 
 
        res.status(201).send(user);
 
