@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken'
 import { User} from "../models/user"
 const router = express.Router();
 
-router.get("/api/users/signin",[
+router.post("/api/users/signin",[
     
     body('email')
     .isEmail()
