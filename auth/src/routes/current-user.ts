@@ -9,4 +9,4 @@ router.get("/api/users/currentuser",currentUser, requireAuth, (req,res)=>{
 
 })
 
-export {router as currentUserRouter};
+export {router as currentUserRouter}; 
