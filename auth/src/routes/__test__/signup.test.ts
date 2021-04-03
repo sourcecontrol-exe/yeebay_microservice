@@ -13,34 +13,34 @@ it('return a 201 on successfull signup', async ()=>{
     .expect(201)
 })
 
-it('return a 400 with an invalid email', async()=>{
-    
-    return request(app)
-    .post('/api/users/signup')
+it("email invalid",async ()=>{
+     await request(app)
+      .post('/api/users/signup')
     .send({
-        email: "estcom",
+        email: "test",
         password: "swetabhs"
     })
     .expect(400)
 })
 
-it('return a 400 with an invalid email', async()=>{
-    
-    return request(app)
-    .post('/api/users/signup')
+it("invlaid password",async () => {
+     await request(app)
+      .post('/api/users/signup')
     .send({
-        email: "test@test1.com",
-        password: "test@test"
-    })
-    .expect(201)
-})
-it('return a 400 with an invalid email', async()=>{
-    
-    return request(app)
-    .post('/api/users/signup')
-    .send({
-        email: "test@test1.com",
-        password: "test@test"
+        email: "test@test.com",
+        password: "swetabhsjibefoadfnadsadasdasdasdasdassodsfiefasdf"
     })
     .expect(400)
+})
+
+it("invlaid password",async () => {
+    const response =  await request(app)
+      .post('/api/users/signup')
+    .send({
+        email: "test@test.com",
+        password: "dsdasfasdasd"
+    })
+    .expect(201)
+
+    expect(response.get("Set-Cookie")).toBeDefined();
 })
