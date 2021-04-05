@@ -1,3 +1,3 @@
 export default ()=>{
-    return <h1> landing page</h1>
+    return <h1> landinage</h1>
 }
