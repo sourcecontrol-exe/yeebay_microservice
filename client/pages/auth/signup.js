@@ -42,7 +42,8 @@ export default () =>{
                     <li key = {err.message}>{err.message}</li>
                 ))}
             </ul>
-         </div>)}
+         </div>
+        )}
         <button className ="btn btn-primary">Sign Up</button>
     </form> 
 }
