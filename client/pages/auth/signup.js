@@ -1,13 +1,22 @@
-
 import {useState} from "react";
+
+import axios from "axios"
+
 export default () =>{
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errors, setError] = useState([]);
 
-    const onSubmit = (event) =>{
+    const onSubmit =async (event) =>{
         event.preventDefault();
-
-        console.log(email, password)
+        try{
+        const response  = await axios.post("/api/users/signup",{
+             email,password})
+        console.log(response.data)
+        }
+        catch(err){
+            setError(err.response.data.errors);
+        }
     }
 
 
@@ -26,6 +35,9 @@ export default () =>{
             onChange = {e=>setPassword(e.target.value)}
             className = 'form-contorol' type="password"></input>
         </div>
+        {errors.map(err=>
+            err.message
+        )}
         <button className ="btn btn-primary">Sign Up</button>
-    </form>
+    </form> 
 }
