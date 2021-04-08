@@ -15,5 +15,4 @@ export class NotFoundError extends CustomError{
             message : 'Not Found'
         }]
     }
-
 }
