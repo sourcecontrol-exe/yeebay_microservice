@@ -1,7 +1,7 @@
 import express,{Request, Response } from "express";
 import {body} from 'express-validator';
-import {validationRequest} from "../middlewares/validate-request";
-import { BadRequestError} from "../errors/bad-request-error";
+import {validationRequest} from "@yeebaytickets/common";
+import { BadRequestError} from "@yeebaytickets/common";
 import {Password} from "../services/password";
 import jwt from 'jsonwebtoken'
 

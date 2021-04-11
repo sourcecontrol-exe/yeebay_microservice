@@ -1,9 +1,9 @@
 import express,{Request, Response} from "express";
 import {body} from 'express-validator';
-import {validationRequest} from "../middlewares/validate-request";
-import {DatabaseConnectionError} from "../errors/database-connection-error";
+import {validationRequest} from "@yeebaytickets/common";
+import {DatabaseConnectionError} from "@yeebaytickets/common";
 import {User} from '../models/user'
-import { BadRequestError } from "../errors/bad-request-error";
+import { BadRequestError } from "@yeebaytickets/common";
 import jwt from 'jsonwebtoken';
 const router = express.Router();
 
