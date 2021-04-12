@@ -27,3 +27,12 @@ build:
         manual:
           - src: '**/*.js'
             dest : .
+    
+    - image: yeebay/tickets  #gcr.io/yeebay-dev/auth
+      context: tickets
+      docker: 
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: '**/*.js'
+            dest : .
