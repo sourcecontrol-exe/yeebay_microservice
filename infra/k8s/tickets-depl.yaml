@@ -1,0 +1,48 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata: 
+    name : tickets-depl
+  
+spec:  
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tickets
+  template:
+    metadata:
+      labels:
+        app: tickets
+
+    spec : 
+      containers: 
+        - name: tickets
+          image:  tickets-depl #gcr.io/yeebay-dev/auth
+          env: 
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+             memory: "128Mi"
+             cpu: "500m"
+
+---
+
+apiVersion: v1
+kind : Service
+
+metadata:
+  name: tickets-srv
+spec: 
+  selector:
+    app: tickets
+  ports:
+    - name: auth
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
