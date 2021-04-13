@@ -16,7 +16,7 @@ spec:
     spec : 
       containers: 
         - name: tickets
-          image:  tickets-depl #gcr.io/yeebay-dev/auth
+          image:  yeebay/tickets #gcr.io/yeebay-dev/auth
           env: 
             - name: JWT_KEY
               valueFrom:
@@ -34,6 +34,7 @@ spec:
 ---
 
 apiVersion: v1
+
 kind : Service
 
 metadata:
@@ -42,7 +43,7 @@ spec:
   selector:
     app: tickets
   ports:
-    - name: auth
+    - name: tickets
       protocol: TCP
       port: 3000
       targetPort: 3000
