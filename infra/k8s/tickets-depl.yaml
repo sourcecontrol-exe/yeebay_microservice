@@ -17,7 +17,9 @@ spec:
       containers: 
         - name: tickets
           image:  yeebay/tickets #gcr.io/yeebay-dev/auth
-          env: 
+          env:
+            - name : MONGO_URI
+              value : 'mongodb://tickets-mongo-srv:27017/tickets'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
