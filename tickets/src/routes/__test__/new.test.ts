@@ -68,5 +68,11 @@ it('it returns an error if invalid price is provided', async () =>{
 
 
 it('create a ticket witjh valid input', async () =>{
-
+     await request(app)
+     .post('/api/tickets')
+     .send({
+         title: "titile",
+         price: 20
+     })
+     .expect(201)
 });
