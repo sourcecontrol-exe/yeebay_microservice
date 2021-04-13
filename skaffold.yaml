@@ -19,6 +19,15 @@ build:
           - src: 'src/**/*.ts'
             dest : .
     
+    - image: yeebay/tickets  #gcr.io/yeebay-dev/auth
+      context: tickets
+      docker: 
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts'
+            dest : .
+    
     - image: yeebay/client  #gcr.io/yeebay-dev/auth
       context: client
       docker: 
@@ -28,11 +37,4 @@ build:
           - src: '**/*.js'
             dest : .
     
-    - image: yeebay/tickets  #gcr.io/yeebay-dev/auth
-      context: tickets
-      docker: 
-        dockerfile: Dockerfile
-      sync: 
-        manual:
-          - src: '**/*.js'
-            dest : .
+    
