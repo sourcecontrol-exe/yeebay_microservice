@@ -6,6 +6,8 @@ import {NotFoundError } from "@yeebaytickets/common"
 import cookieSession from "cookie-session"
 
 import {createTicketRouter} from "./routes/new";
+import {showTicketRouter} from "./routes/show";
+
 import {currentUser} from "@yeebaytickets/common";
 
 const app = express();
@@ -19,7 +21,10 @@ app.use(cookieSession({
     secure: process.env.NODE_ENV !== "test"
 }))
 app.use(currentUser);
+
 app.use(createTicketRouter);
+
+app.use(showTicketRouter);
 
 app.use(errorHandler);
 
