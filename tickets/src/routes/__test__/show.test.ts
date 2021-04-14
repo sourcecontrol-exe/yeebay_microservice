@@ -28,4 +28,4 @@ it('returns the ticket if the ticket is found', async () => {
 
   expect(ticketResponse.body.title).toEqual(title);
   expect(ticketResponse.body.price).toEqual(price);
-});
+}); 
