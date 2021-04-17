@@ -6,7 +6,6 @@ import {randomBytes} from 'crypto';
 console.clear();
 
 
-
 const stan = nats.connect('ticketing', randomBytes(4).toString("hex"),{
     url:"http://localhost:4222"
 })
@@ -19,9 +18,12 @@ stan.on('connect', ()=>{
         process.exit();
     })
 
-    const options = stan.subscriptionOptions().setManualAckMode(true);
+    const options = stan.subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()
+    .setDurableName("order-serevice");
 
-    const subscription = stan.subscribe("ticket:created", 'ticking:queue_group', options)
+    const subscription = stan.subscribe("ticket:created", options)
 
     subscription.on('message', (msg:Message) =>{
         console.log("msg recived");
