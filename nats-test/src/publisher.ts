@@ -1,5 +1,5 @@
 import nats from 'node-nats-streaming';
-import { TicketCreatedPublisher } from './events/ticket-created-publisher';
+import { TicketCreatedPublisher } from './events/ticket-created-publisher'
 
 console.clear();
 

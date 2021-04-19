@@ -48,3 +48,35 @@ export abstract class Listener<T extends Event> {
       : JSON.parse(data.toString('utf8'));
   }
 }
+
+
+// stan.on('connect', () => {
+//   console.log('Listener connected to NATS');
+
+//   stan.on('close', () => {
+//     console.log('NATS connection closed!');
+//     process.exit();
+//   });
+
+//   const options = stan
+//     .subscriptionOptions()
+//     .setManualAckMode(true)
+//     .setDeliverAllAvailable()
+//     .setDurableName('accounting-service');
+
+//   const subscription = stan.subscribe(
+//     'ticket:created',
+//     'queue-group-name',
+//     options
+//   );
+
+//   subscription.on('message', (msg: Message) => {
+//     const data = msg.getData();
+
+//     if (typeof data === 'string') {
+//       console.log(`Received event #${msg.getSequence()}, with data: ${data}`);
+//     }
+
+//     msg.ack();
+//   });
+// });
