@@ -18,6 +18,14 @@ spec:
         - name: tickets
           image:  yeebay/tickets #gcr.io/yeebay-dev/auth
           env:
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value : 'ticketing'
+            - name : NATS_CLIENT_ID
+              valueFrom:
+                fieldRef :
+                  fieldPath : metadata.name
             - name : MONGO_URI
               value : 'mongodb://tickets-mongo-srv:27017/tickets'
             - name: JWT_KEY
