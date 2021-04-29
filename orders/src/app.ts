@@ -2,13 +2,13 @@ import express from "express";
 import {json} from "body-parser";
 
 import {errorHandler} from "@yeebaytickets/common"
-import {NotFoundError } from "@yeebaytickets/common"
+import {NotFoundError, currentUser } from "@yeebaytickets/common"
 import cookieSession from "cookie-session"
 
-import {createTicketRouter} from "./routes/new";
-import {showTicketRouter} from "./routes/show";
-import {indexTicketRouter} from "./routes/index"
-import {currentUser} from "@yeebaytickets/common";
+import {newOrderRouter} from "./routes/new";
+import {showOrderRouter} from "./routes/show";
+import {indexOrderRouter} from "./routes/index"
+import {deleteOrderRouter} from './routes/delete'
 
 const app = express();
 
@@ -21,11 +21,12 @@ app.use(cookieSession({
     secure: process.env.NODE_ENV !== "test"
 }))
 app.use(currentUser);
+app.use(deleteOrderRouter);
 
-app.use(createTicketRouter);
+app.use(newOrderRouter);
 
-app.use(showTicketRouter);
- app.use(indexTicketRouter);
+app.use(showOrderRouter);
+ app.use(indexOrderRouter);
 app.use(errorHandler);
 
 app.all('*', async (req,res)=>{
