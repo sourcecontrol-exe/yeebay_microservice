@@ -1,7 +1,10 @@
 import express, {Request, Response} from "express";
 import mongoose from "mongoose";
 
-import {requireAuth, validationRequest} from '@yeebaytickets/common'
+import {Ticket} from '../models/ticket';
+import {Order} from "../models/order";
+
+import {requireAuth, validationRequest, NotFoundError} from '@yeebaytickets/common'
 
 import {body} from 'express-validator';
 
@@ -16,6 +19,23 @@ router.post("/api/orders",requireAuth,[
     .withMessage("TicketId must be provided")],
     validationRequest,    
     async (req: Request, res :Response)=>{
+        // find the ticket that user is trying to purchase
+
+        const { ticketId } = req.body;
+        const ticket = await Ticket.findById(ticketId);
+
+        if(!ticket){
+            return new NotFoundError();
+        }
+        
+        // make sure that this ticket is not already reserved
+        // calculate an expiration date for an order ~15min.
+        // build the order and save it to the database
+        //publish an event sayign that an ordert was created.
+
+
+
+
     res.send({})  
 })
 
