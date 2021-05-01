@@ -27,6 +27,15 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest : .
+
+    - image: yeebay/orders  #gcr.io/yeebay-dev/auth
+      context: orders
+      docker: 
+        dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts'
+            dest : .
     
     - image: yeebay/client  #gcr.io/yeebay-dev/auth
       context: client
