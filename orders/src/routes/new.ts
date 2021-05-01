@@ -1,48 +1,52 @@
-import express, {Request, Response} from "express";
-import mongoose from "mongoose";
-
-import {Ticket} from '../models/ticket';
-import {Order} from "../models/order";
-
-import {requireAuth, validationRequest, NotFoundError, OrderStatus, BadRequestError} from '@yeebaytickets/common'
-
-import {body} from 'express-validator';
-
+import mongoose from 'mongoose';
+import express, { Request, Response } from 'express';
+import {
+  requireAuth,
+  validationRequest,
+  NotFoundError,
+  OrderStatus,
+  BadRequestError,
+} from '@yeebaytickets/common';
+import { body } from 'express-validator';
+import { Ticket } from '../models/ticket';
+import { Order } from '../models/order';
 
 const router = express.Router();
 
-router.post("/api/orders",requireAuth,[
-    body("ticketId")
-    .not()
-    .isEmpty()
-    .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
-    .withMessage("TicketId must be provided")],
-    validationRequest,    
-    async (req: Request, res :Response)=>{
-        // find the ticket that user is trying to purchase
+router.post(
+  '/api/orders',
+  requireAuth,
+  [
+    body('ticketId')
+      .not()
+      .isEmpty()
+      .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
+      .withMessage('TicketId must be provided'),
+  ],
+  validationRequest,
+  async (req: Request, res: Response) => {
+    const { ticketId } = req.body;
 
-        const { ticketId } = req.body;
-        const ticket = await Ticket.findById(ticketId);
+    // Find the ticket the user is trying to order in the database
+    const ticket = await Ticket.findById(ticketId);
+    if (!ticket) {
+      throw new NotFoundError();
+    }
 
-        if(!ticket){
-            return new NotFoundError();
-        }
-        //run query to lool at all orders.  ifnd an order wher the ticket is the ticket we just found *and* the orders status is *not*
-        // canelled.
-        //if we fiond an order from that means the ticket "is" reserved
-        
-         if(existingOrder){
-            return new BadRequestError("ticket is already reserved")
-         }
-        // make sure that this ticket is not already reserved
-        // calculate an expiration date for an order ~15min.
-        // build the order and save it to the database
-        //publish an event sayign that an ordert was created.
- 
+    // Make sure that this ticket is not already reserved
+    const isReserved = await ticket.isReserved();
+    if (isReserved) {
+      throw new BadRequestError('Ticket is already reserved');
+    }
 
+    // Calculate an expiration date for this order
 
+    // Build the order and save it to the database
 
-    res.send({})  
-})
+    // Publish an event saying that an order was created
 
-export {router as newOrderRouter};
+    res.send({});
+  }
+);
+
+export { router as newOrderRouter };
