@@ -30,16 +30,7 @@ router.post("/api/orders",requireAuth,[
         //run query to lool at all orders.  ifnd an order wher the ticket is the ticket we just found *and* the orders status is *not*
         // canelled.
         //if we fiond an order from that means the ticket "is" reserved
-         const existingOrder = await Order.findOne({
-             ticket:ticket,
-             status: {
-                 $in: [
-                     OrderStatus.Created,
-                     OrderStatus.AwaitingPayment,
-                     OrderStatus.Complete,
-                 ]
-             }
-         });
+        
          if(existingOrder){
             return new BadRequestError("ticket is already reserved")
          }
@@ -47,7 +38,7 @@ router.post("/api/orders",requireAuth,[
         // calculate an expiration date for an order ~15min.
         // build the order and save it to the database
         //publish an event sayign that an ordert was created.
-
+ 
 
 
 
