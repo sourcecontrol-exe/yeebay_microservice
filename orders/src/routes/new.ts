@@ -27,7 +27,19 @@ router.post("/api/orders",requireAuth,[
         if(!ticket){
             return new NotFoundError();
         }
-        
+        //run query to lool at all orders.  ifnd an order wher the ticket is the ticket we just found *and* the orders status is *not*
+        // canelled.
+        //if we fiond an order from that means the ticket "is" reserved
+         const order = await Order.findOne({
+             ticket:ticket,
+             status: {
+                 $in: [
+                     OrderStatus.Created,
+                     OrderStatus.AwaitingPayment,
+                     OrderStatus.Complete,
+                 ]
+             }
+         })
         // make sure that this ticket is not already reserved
         // calculate an expiration date for an order ~15min.
         // build the order and save it to the database
