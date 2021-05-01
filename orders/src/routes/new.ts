@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import {Ticket} from '../models/ticket';
 import {Order} from "../models/order";
 
-import {requireAuth, validationRequest, NotFoundError} from '@yeebaytickets/common'
+import {requireAuth, validationRequest, NotFoundError, OrderStatus, BadRequestError} from '@yeebaytickets/common'
 
 import {body} from 'express-validator';
 
@@ -30,7 +30,7 @@ router.post("/api/orders",requireAuth,[
         //run query to lool at all orders.  ifnd an order wher the ticket is the ticket we just found *and* the orders status is *not*
         // canelled.
         //if we fiond an order from that means the ticket "is" reserved
-         const order = await Order.findOne({
+         const existingOrder = await Order.findOne({
              ticket:ticket,
              status: {
                  $in: [
@@ -39,7 +39,10 @@ router.post("/api/orders",requireAuth,[
                      OrderStatus.Complete,
                  ]
              }
-         })
+         });
+         if(existingOrder){
+            return new BadRequestError("ticket is already reserved")
+         }
         // make sure that this ticket is not already reserved
         // calculate an expiration date for an order ~15min.
         // build the order and save it to the database
