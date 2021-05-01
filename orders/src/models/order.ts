@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import{ TicketDoc} from "./ticket";
 
 import {OrderStatus}  from "@yeebaytickets/common";
 
