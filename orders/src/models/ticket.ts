@@ -41,6 +41,9 @@ const ticketSchema = new mongoose.Schema(
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);
 };
+
+//run query to look at all the orders ,find the order wher the ticket is ticket we just found and the order is not concelled
+// if we find and order from that , then it means the ticket *is* reserved.
 ticketSchema.methods.isReserved = async function () {
   // this === the ticket document that we just called 'isReserved' on
   const existingOrder = await Order.findOne({
