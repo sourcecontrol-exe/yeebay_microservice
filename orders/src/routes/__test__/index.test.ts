@@ -44,5 +44,15 @@ it("fectes orders for an partiular order", async ()=>{
 
     // create two orders as user Number 2
 
+    const response = await request(app)
+    .get('/api/order')
+    .set('Cookie', UserTwo)
+    .expect(200);
+
+    expect(response.body.length).toEqual(2);
+
+
+    
+
     //mkae sure we only go tthe order for user number 2
 })
