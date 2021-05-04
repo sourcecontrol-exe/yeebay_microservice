@@ -28,7 +28,6 @@ it('fetches orders for an particular user', async () => {
     .set('Cookie', userOne)
     .send({ ticketId: ticketOne.id })
     .expect(201);
-
   // Create two orders as User #2
   const { body: orderOne } = await request(app)
     .post('/api/orders')
