@@ -34,3 +34,15 @@ it('implements optimistic concurtrnet y test', async (done) =>{
     
     throw new Error("should not reach this point")
 })
+
+it('increment the veriion number of the documnet', async ()=>{
+    const ticket = Ticket.build({
+        title : "concert",
+        price : 23,
+        userId: "123"
+    })
+    await ticket.save();
+    expect(ticket.version).toEqual(0);
+    await ticket.save();
+    expect(ticket.version).toEqual(1);
+})
