@@ -1,6 +1,6 @@
 import {Ticket} from '../ticket';
 
-it('implements optimistic concurtrnet y test', async () =>{
+it('implements optimistic concurtrnet y test', async (done) =>{
     //creat a n instance of a ticket 
 
     const ticket = Ticket.build({
@@ -25,6 +25,12 @@ it('implements optimistic concurtrnet y test', async () =>{
     await firstInstance!.save();
 
     // save the secons fetched ticket asb expect an error
-
-    await secondInstance!.save();
+    try {
+        await secondInstance!.save();
+    }
+    catch(err){
+        return done();
+    }
+    
+    throw new Error("should not reach this point")
 })
