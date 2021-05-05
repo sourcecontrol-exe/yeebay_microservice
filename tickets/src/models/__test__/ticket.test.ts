@@ -15,7 +15,7 @@ it('implements optimistic concurtrnet y test', async (done) =>{
      ticket.save();    
     //fetch the ticket twice
     const firstInstance = await Ticket.findById(ticket.id);
-    //mkae two seperate cahnge to the ticket swe fetched
+    //mkae two seperate cahnge to the ticket  fetched
     const secondInstance = await Ticket.findById(ticket.id); 
     //save the first fetched ticket
 
