@@ -41,9 +41,6 @@ it('creates and saves a ticket', async () => {
   expect(ticket!.price).toEqual(data.price);
 });
 
-
-
-
 /*const setup = async () => {
    create an instance of the listener
    create a fake data event
