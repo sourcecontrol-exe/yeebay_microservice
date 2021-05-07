@@ -21,7 +21,7 @@
     "@types/cookie-session": "^2.0.42",
     "@types/express": "^4.17.11",
     "@types/jsonwebtoken": "^8.5.1",
-    "@yeebaytickets/common": "^1.0.10",
+    "@yeebaytickets/common": "^1.0.11",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
