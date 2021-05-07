@@ -46,7 +46,7 @@ const orderSchema = new mongoose.Schema(
   },
   {
     toJSON: {
-      transform(doc, ret) {
+      transform(doc, ret){
         ret.id = ret._id;
         delete ret._id;
       },
@@ -54,7 +54,7 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-orderSchema.set('versionKey', 'version');
+orderSchema.set('versionKey','version');
 orderSchema.plugin(updateIfCurrentPlugin);
 
 orderSchema.statics.build = (attrs: OrderAttrs) => {
