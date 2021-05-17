@@ -1,0 +1,39 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata: 
+    name : expiration-depl
+  
+spec:  
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expiration
+  template:
+    metadata:
+      labels:
+        app: expiration
+
+    spec : 
+      containers: 
+        - name: expiration
+          image:  yeebay/expiration #gcr.io/yeebay-dev/auth
+          env:
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value : 'ticketing'
+            - name : NATS_CLIENT_ID
+              valueFrom:
+                fieldRef :
+                  fieldPath : metadata.name
+            - name : REDIS_HOST
+              value: expiration-redis-srv 
+           
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m" 
+
