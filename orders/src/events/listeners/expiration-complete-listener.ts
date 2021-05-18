@@ -12,9 +12,13 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
     async onMessage(data: ExpirationCompleteEvent['data'], msg : Message)
     {
         const order = await Order.findById(data.orderId);
+        
 
         if(!order){
             throw new Error("Order-not-found")
+        }
+        if(order.status == OrderStatus.Complete){
+            msg.ack()
         }
     
         order.set({
