@@ -13,14 +13,16 @@ spec:
         app: expiration-redis
     spec:
       containers:
-      - name: expiration-redis
-        image: redis
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
+        - name: expiration-redis
+          image: redis
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
