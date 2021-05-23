@@ -45,7 +45,15 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest : .
-    
+    - image: yeebay/payments  #gcr.io/yeebay-dev/auth
+      context: payments
+      docker: 
+          dockerfile: Dockerfile
+      sync: 
+        manual:
+          - src: 'src/**/*.ts'
+            dest : . 
+
     - image: yeebay/client  #gcr.io/yeebay-dev/auth
       context: client
       docker: 
