@@ -11,7 +11,7 @@ let mongo:any
 declare global {
     namespace NodeJS {
         interface Global{
-            signin():string[];
+            signin(id?: string):string[];
         }
     }
 }
