@@ -85,6 +85,11 @@ it('returns a 204 with valid inputs', async () => {
   expect(chargeOptions.amount).toEqual(20 * 100);
   expect(chargeOptions.currency).toEqual('usd');
 
+  const stripeCharges = await stripe.charges.list({ limit: 50 });
+  const stripeCharge = stripeCharges.data.find((charge) => {
+    return charge.amount === 20 * 100;
+  });
+
   expect(stripeCharge).toBeDefined();
   expect(stripeCharge!.currency).toEqual('usd');
 
