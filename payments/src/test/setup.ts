@@ -42,10 +42,10 @@ afterAll(async () =>{
     await mongoose.connection.close();
 })
 
-global.signin = () =>{
+global.signin = (id? : string) =>{
   //build jwt paylaod {id,email}
   const payload = {
-      id: "sd23e4q3wkjd",
+      id: id || "sd23e4q3wkjd",
       email : "test@test.com"
   };
 
